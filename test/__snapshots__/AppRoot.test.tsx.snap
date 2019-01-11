@@ -9,7 +9,7 @@ exports[`App snapshot test 1`] = `
   }
 >
   <Text>
-    Hello Expo! alma
+    Hello Zoli! alma 2
   </Text>
   <View
     accessibilityRole="button"
@@ -45,7 +45,7 @@ exports[`App snapshot test 1`] = `
               "textAlign": "center",
             },
             Object {
-              "color": "black",
+              "color": "#ff2000",
             },
           ]
         }

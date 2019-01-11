@@ -12,6 +12,9 @@
     "start:web": "webpack-dev-server"
   },
   "dependencies": {
+    "@sensenet/client-core": "^1.3.2",
+    "@sensenet/client-utils": "^1.4.1",
+    "@sensenet/query": "^1.1.1",
     "expo": "^32.0.0",
     "html-webpack-plugin": "^3.2.0",
     "react": "^16.5.0",
@@ -19,6 +22,7 @@
     "react-dom": "^16.7.0",
     "react-native": "https://github.com/expo/react-native/archive/sdk-32.0.0.tar.gz",
     "react-native-web": "^0.10.0-alpha.1",
+    "redux-di-middleware": "^2.0.2",
     "webpack-bundle-analyzer": "^3.0.3"
   },
   "devDependencies": {
