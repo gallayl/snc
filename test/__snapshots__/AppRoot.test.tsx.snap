@@ -4,7 +4,7 @@ exports[`App snapshot test 1`] = `
 <View
   style={
     Object {
-      "marginTop": 50,
+      "margin": 50,
     }
   }
 >
@@ -43,9 +43,6 @@ exports[`App snapshot test 1`] = `
               "fontSize": 18,
               "padding": 8,
               "textAlign": "center",
-            },
-            Object {
-              "color": "#ff2000",
             },
           ]
         }

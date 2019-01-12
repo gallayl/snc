@@ -8,6 +8,10 @@ import {
 import { ObservableValue } from "@sensenet/client-utils";
 import { User } from "@sensenet/default-content-types";
 export class FormsAuthentication implements AuthenticationService {
+
+  public static Setup(repository: Repository) {
+    return new FormsAuthentication(repository);
+  }
   public state: ObservableValue<LoginState> = new ObservableValue(
     LoginState.Unknown,
   );
@@ -16,16 +20,41 @@ export class FormsAuthentication implements AuthenticationService {
     ConstantContent.VISITOR_USER,
   );
 
-  /**
-   *
-   */
-  constructor(private repository: Repository) {}
+  constructor(private repository: Repository) {
+    this.repository.authentication = this;
+    this.getCurrentUser();
+  }
   public async dispose(): Promise<void> {
     /** */
   }
   public async checkForUpdate(): Promise<boolean> {
     return false;
   }
+
+  public async getCurrentUser() {
+    this.state.setValue(LoginState.Pending);
+    try {
+      const result = await this.repository.loadCollection({
+        path: ConstantContent.PORTAL_ROOT.Path,
+        oDataOptions: {
+          query: "Id:@@CurrentUser.Id@@",
+          top: 1,
+        },
+      });
+      if (result.d.__count === 1) {
+        if (result.d.results[0].Id !== ConstantContent.VISITOR_USER.Id) {
+          this.state.setValue(LoginState.Authenticated);
+          this.currentUser.setValue(result.d.results[0]);
+          return;
+        }
+      }
+    } catch (error) {
+      /** */
+    }
+    this.state.setValue(LoginState.Unauthenticated);
+    this.currentUser.setValue(ConstantContent.VISITOR_USER);
+  }
+
   public async login(username: string, password: string): Promise<boolean> {
     try {
       const user = await this.repository.executeAction<
